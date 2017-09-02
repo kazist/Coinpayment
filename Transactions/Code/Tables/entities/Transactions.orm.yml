@@ -1,5 +1,5 @@
-Kopokopo\Transactions\Code\Tables\Transactions:
-  table: kopokopo_transactions
+Coinpayment\Transactions\Code\Tables\Transactions:
+  table: coinpayment_transactions
   type: entity
   id:
     id:

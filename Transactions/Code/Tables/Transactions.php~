@@ -1,13 +1,13 @@
 <?php
 
-namespace Coinpayment\Transactions\Code\Tables;
+namespace Kopokopo\Transactions\Code\Tables;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Transactions
  *
- * @ORM\Table(name="coinpayment_transactions", indexes={@ORM\Index(name="used_by_index", columns={"used_by"})})
+ * @ORM\Table(name="kopokopo_transactions", indexes={@ORM\Index(name="used_by_index", columns={"used_by"})})
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */

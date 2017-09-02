@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Kopokopo\Payments\Code\Models;
+namespace Coinpayment\Payments\Code\Models;
 
 defined('KAZIST') or exit('Not Kazist Framework');
 
@@ -32,7 +32,7 @@ class PaymentsModel extends BasePaymentsModel {
     }
 
     public function notificationTransaction($payment_id) {
-        $this->processKopokopo($payment_id);
+        $this->processCoinpayment($payment_id);
     }
 
     public function completeTransaction($payment_id) {
@@ -56,7 +56,7 @@ class PaymentsModel extends BasePaymentsModel {
 
         $query = new Query();
         $query->select('kt.*');
-        $query->from('#__kopokopo_transactions', 'kt');
+        $query->from('#__coinpayment_transactions', 'kt');
         $query->where('kt.transaction_reference=:transaction_reference');
         $query->setParameter('transaction_reference', $mpesa_code);
         $record = $query->loadObject();
@@ -74,33 +74,33 @@ class PaymentsModel extends BasePaymentsModel {
         }
     }
 
-    public function processKopokopo($payment_id, $mpesa_code) {
+    public function processCoinpayment($payment_id, $mpesa_code) {
 
         $is_valid = true;
 
         $factory = new KazistFactory();
 
-        $gateway = $this->getGatewayByName('kopokopo');
+        $gateway = $this->getGatewayByName('coinpayment');
 
-        $kopokopo_obj = $this->getKopokopoTransaction(trim($mpesa_code));
+        $coinpayment_obj = $this->getCoinpaymentTransaction(trim($mpesa_code));
         $payment = $this->getPaymentById($payment_id);
         $deductions = json_decode($payment->deductions);
         $required_amount = ($deductions->amount) ? $deductions->amount : $payment->amount;
-        $paid_amount = $kopokopo_amount = ($kopokopo_obj->amount) ? $kopokopo_obj->amount : '';
+        $paid_amount = $coinpayment_amount = ($coinpayment_obj->amount) ? $coinpayment_obj->amount : '';
 
         // $paid_amount = $this->getConverterAmount($paid_amount, $gateway, false);
         //  $required_amount = $this->getConverterAmount($required_amount, $gateway, false);
 
         $payment->code = $mpesa_code;
         $payment->receipt_no = $payment->receipt_no;
-        $payment->type = 'kopokopo';
+        $payment->type = 'coinpayment';
         $payment->gateway_id = $gateway->id;
 
-        if ($required_amount > $kopokopo_amount) {
+        if ($required_amount > $coinpayment_amount) {
             $paid_amount = $required_amount;
         }
 
-        if (!is_object($kopokopo_obj)) {
+        if (!is_object($coinpayment_obj)) {
             $factory->enqueueMessage('Mpesa Code (' . $mpesa_code . ') does not exist.', 'error');
             return false;
         }
@@ -111,43 +111,43 @@ class PaymentsModel extends BasePaymentsModel {
             $is_valid = false;
         }
 
-        $this->saveKopokopoPayment($paid_amount, $mpesa_code,$kopokopo_obj->sender_phone);
-        $this->updateKopokopo($kopokopo_obj);
+        $this->saveCoinpaymentPayment($paid_amount, $mpesa_code,$coinpayment_obj->sender_phone);
+        $this->updateCoinpayment($coinpayment_obj);
 
         return $is_valid;
     }
 
-    public function saveKopokopoPayment($amount, $mpesa_code,$phone) {
+    public function saveCoinpaymentPayment($amount, $mpesa_code,$phone) {
 
         $factory = new KazistFactory();
         $user = $factory->getUser();
 
-        $kopokopo_obj = new \stdClass();
-        $kopokopo_obj->transaction_reference = $mpesa_code;
-        $kopokopo_obj->user_id = $user->id;
-        $kopokopo_obj->sender_phone = $phone;
-        $kopokopo_obj->amount = $amount;
+        $coinpayment_obj = new \stdClass();
+        $coinpayment_obj->transaction_reference = $mpesa_code;
+        $coinpayment_obj->user_id = $user->id;
+        $coinpayment_obj->sender_phone = $phone;
+        $coinpayment_obj->amount = $amount;
 
-        $factory->saveRecord('#__kopokopo_payments', $kopokopo_obj);
+        $factory->saveRecord('#__coinpayment_payments', $coinpayment_obj);
     }
 
-    public function updateKopokopo($kopokopo_obj) {
+    public function updateCoinpayment($coinpayment_obj) {
 
         $factory = new KazistFactory();
         $user = $factory->getUser();
 
-        $kopokopo_obj->used = 1;
-        $kopokopo_obj->date_used = date('Y-m-d H:i:s');
-        $kopokopo_obj->used_by = $user->id;
+        $coinpayment_obj->used = 1;
+        $coinpayment_obj->date_used = date('Y-m-d H:i:s');
+        $coinpayment_obj->used_by = $user->id;
 
-        $factory->saveRecord('#__kopokopo_transactions', $kopokopo_obj);
+        $factory->saveRecord('#__coinpayment_transactions', $coinpayment_obj);
     }
 
-    public function getKopokopoTransaction($mpesa_code) {
+    public function getCoinpaymentTransaction($mpesa_code) {
 
         $query = new Query();
         $query->select('kt.*');
-        $query->from('#__kopokopo_transactions', 'kt');
+        $query->from('#__coinpayment_transactions', 'kt');
         $query->where('kt.transaction_reference=:transaction_reference');
         $query->setParameter('transaction_reference', $mpesa_code);
 

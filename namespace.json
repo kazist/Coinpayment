@@ -1,10 +1,10 @@
 {
-    "KopokopoPayments": {
-        "namespace": "Kopokopo\\Payments",
+    "CoinpaymentPayments": {
+        "namespace": "Coinpayment\\Payments",
         "controller": "PaymentsController"
     },
-    "KopokopoTransactions": {
-        "namespace": "Kopokopo\\Transactions",
+    "CoinpaymentTransactions": {
+        "namespace": "Coinpayment\\Transactions",
         "controller": "TransactionsController"
     }
 }

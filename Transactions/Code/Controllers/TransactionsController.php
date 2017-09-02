@@ -13,7 +13,7 @@
  * @author sbc
  */
 
-namespace Kopokopo\Transactions\Code\Controllers;
+namespace Coinpayment\Transactions\Code\Controllers;
 
 defined('KAZIST') or exit('Not Kazist Framework');
 
@@ -26,12 +26,12 @@ class TransactionsController extends BaseController {
 
         $factory = new KazistFactory();
 
-        $this->model->syncKopokopoTransactions();
+        $this->model->syncCoinpaymentTransactions();
 
         $data = array(
             "status" => "01",
             "description" => "Accepted",
-            "subscriber_message" => $factory->getSetting("kopokopo_listener_response_message")
+            "subscriber_message" => $factory->getSetting("coinpayment_listener_response_message")
         );
 
         return $this->json($data);

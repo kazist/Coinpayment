@@ -1,22 +1,22 @@
 
 [{
         "_table_name": "payments_gateways",
-        "tracking_id": "19",
-        "short_name": "kopokopo",
-        "long_name": "Kopokopo",
-        "input_label": "Kopokopo",
+        "tracking_id": "20",
+        "short_name": "coinpayment",
+        "long_name": "Coinpayment",
+        "input_label": "Coinpayment",
         "can_withdraw": "0",
         "can_payment": "1",
         "can_transfer": "0",
-        "payment_instruction": "To complete your Payment click the Kopokopo button below and make a payment of <b>{{ gateway.total_amount }} USD</b>. <br> {{ payment_form }}",
-        "withdraw_instruction": "To complete your Withdraw click the Kopokopo button below and make a payment of <b>{{ gateway.total_amount }} USD</b>. <br> {{ payment_form }}",
+        "payment_instruction": "To complete your Payment click the Coinpayment button below and make a payment of <b>{{ gateway.total_amount }} USD</b>. <br> {{ payment_form }}",
+        "withdraw_instruction": "To complete your Withdraw click the Coinpayment button below and make a payment of <b>{{ gateway.total_amount }} USD</b>. <br> {{ payment_form }}",
         "withdraw_file_prefix": "",
         "withdraw_file_structure": "",
         "withdraw_file_suffix": "",
         "file_type": "csv",
         "file_limit": "2000",
-        "form_path": "Kopokopo/Payments/Code/gateways",
-        "url": "{{ web_base }}/kopokopo/payments/notify?payment_id={{ payment.id}}",
+        "form_path": "Coinpayment/Payments/Code/gateways",
+        "url": "{{ web_base }}/coinpayment/payments/notify?payment_id={{ payment.id}}",
         "published": "1"
     }]
 

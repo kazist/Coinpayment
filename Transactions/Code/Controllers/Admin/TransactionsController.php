@@ -13,7 +13,7 @@
  * @author sbc
  */
 
-namespace Kopokopo\Transactions\Code\Controllers\Admin;
+namespace Coinpayment\Transactions\Code\Controllers\Admin;
 
 defined('KAZIST') or exit('Not Kazist Framework');
 

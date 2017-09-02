@@ -13,11 +13,11 @@
  * @author sbc
  */
 
-namespace Kopokopo\Payments\Code\Controllers;
+namespace Coinpayment\Payments\Code\Controllers;
 
 defined('KAZIST') or exit('Not Kazist Framework');
 
-use Kopokopo\Payments\Code\Models\PaymentsModel;
+use Coinpayment\Payments\Code\Models\PaymentsModel;
 use Payments\Payments\Code\Controllers\PaymentsController AS BasePaymentsController;
 
 class PaymentsController extends BasePaymentsController {
@@ -52,7 +52,7 @@ class PaymentsController extends BasePaymentsController {
         if ($this->model->checkMpesaCodeExist($mpesa_code)) {
 
             $this->model = new PaymentsModel();
-            $this->model->processKopokopo($payment_id, $mpesa_code);
+            $this->model->processCoinpayment($payment_id, $mpesa_code);
             $this->model->notificationTransaction($payment_id);
             $payment_url = $this->model->getUrlByPaymentId($payment_id);
 

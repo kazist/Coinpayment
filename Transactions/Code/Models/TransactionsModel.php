@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Kopokopo\Transactions\Code\Models;
+namespace Coinpayment\Transactions\Code\Models;
 
 defined('KAZIST') or exit('Not Kazist Framework');
 
@@ -21,7 +21,7 @@ use Kazist\Service\Email\Email;
  */
 class TransactionsModel extends BaseModel {
 
-    public function syncKopokopoTransactions() {
+    public function syncCoinpaymentTransactions() {
 
         $factory = new KazistFactory();
 
@@ -32,7 +32,7 @@ class TransactionsModel extends BaseModel {
 
         $content->name = $content->first_name . ' ' . $content->middle_name . ' ' . $content->last_name;
 
-        $factory->saveRecord('#__kopokopo_transactions', $content, array('transaction_reference=:transaction_reference'), $exist);
+        $factory->saveRecord('#__coinpayment_transactions', $content, array('transaction_reference=:transaction_reference'), $exist);
     }
 
 }

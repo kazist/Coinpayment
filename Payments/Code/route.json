@@ -1,42 +1,42 @@
 {
     "frontend": [{
-            "title": "Kopokopo Payments Return",
-            "description": "Kopokopo Payments Return.",
-            "controller": "Kopokopo\\Payments\\Code\\Controllers\\PaymentsController::returnAction",
-            "unique_name": "kopokopo.payments.return",
-            "route": "kopokopo/payments/return",
+            "title": "Coinpayment Payments Return",
+            "description": "Coinpayment Payments Return.",
+            "controller": "Coinpayment\\Payments\\Code\\Controllers\\PaymentsController::returnAction",
+            "unique_name": "coinpayment.payments.return",
+            "route": "coinpayment/payments/return",
             "permissions": "can_view, can_viewown",
             "arguments": "",
-            "keywords": "kopokopo, return",
+            "keywords": "coinpayment, return",
             "priority": "0.5",
             "changefreq": "weekly",
             "login_required": 0
 
         }, {
-            "title": "Kopokopo Payments Cancelled",
-            "description": "Kopokopo Payments Cancelled",
-            "controller": "Kopokopo\\Payments\\Code\\Controllers\\PaymentsController::cancelAction",
-            "unique_name": "kopokopo.payments.cancel",
-            "route": "kopokopo/payments/cancel",
+            "title": "Coinpayment Payments Cancelled",
+            "description": "Coinpayment Payments Cancelled",
+            "controller": "Coinpayment\\Payments\\Code\\Controllers\\PaymentsController::cancelAction",
+            "unique_name": "coinpayment.payments.cancel",
+            "route": "coinpayment/payments/cancel",
             "permissions": "can_view, can_viewown",
             "arguments": {
                 "id": null
             },
-            "keywords": "kopokopo,cancel",
+            "keywords": "coinpayment,cancel",
             "priority": "0.5",
             "changefreq": "weekly",
             "login_required": 0
         }, {
-            "title": "Kopokopo Payments Notify",
-            "description": "Kopokopo Payments Notify",
-            "controller": "Kopokopo\\Payments\\Code\\Controllers\\PaymentsController::notifyAction",
-            "unique_name": "kopokopo.payments.notify",
-            "route": "kopokopo/payments/notify",
+            "title": "Coinpayment Payments Notify",
+            "description": "Coinpayment Payments Notify",
+            "controller": "Coinpayment\\Payments\\Code\\Controllers\\PaymentsController::notifyAction",
+            "unique_name": "coinpayment.payments.notify",
+            "route": "coinpayment/payments/notify",
             "permissions": "can_view, can_viewown",
             "arguments": {
                 "id": null
             },
-            "keywords": "kopokopo, notify",
+            "keywords": "coinpayment, notify",
             "priority": "0.5",
             "changefreq": "weekly",
             "login_required": 0
@@ -44,12 +44,12 @@
     "backend": [{
             "title": "General Tasks",
             "description": "General Tasks.",
-            "controller": "Kopokopo\\Payments\\Code\\Controllers\\Admin\\PaymentsController::taskAction",
-            "unique_name": "admin.kopokopo.payments.task",
-            "route": "admin/kopokopo/payments/task",
+            "controller": "Coinpayment\\Payments\\Code\\Controllers\\Admin\\PaymentsController::taskAction",
+            "unique_name": "admin.coinpayment.payments.task",
+            "route": "admin/coinpayment/payments/task",
             "permissions": "can_add, can_write, can_writeown",
             "arguments": "",
-            "keywords": "kopokopo, task",
+            "keywords": "coinpayment, task",
             "priority": "0.5",
             "changefreq": "weekly",
             "login_required": 1,
@@ -58,12 +58,12 @@
                 "ADMIN": ["can_add", "can_write", "can_writeown"]
             }
         }, {
-            "title": "Kopokopo Payments List",
-            "description": "Management of Kopokopo Payments.",
-            "controller": "Kopokopo\\Payments\\Code\\Controllers\\Admin\\PaymentsController::indexAction",
+            "title": "Coinpayment Payments List",
+            "description": "Management of Coinpayment Payments.",
+            "controller": "Coinpayment\\Payments\\Code\\Controllers\\Admin\\PaymentsController::indexAction",
             "permissions": "can_view, can_viewown",
-            "unique_name": "admin.kopokopo.payments",
-            "route": "admin/kopokopo/payments",
+            "unique_name": "admin.coinpayment.payments",
+            "route": "admin/coinpayment/payments",
             "arguments": "",
             "keywords": "cron, list",
             "priority": "0.5",
@@ -74,11 +74,11 @@
                 "ADMIN": ["can_view", "can_viewown"]
             }
         }, {
-            "title": "Kopokopo Payments Detail: {{ item.name }}",
-            "description": "Kopokopo Payments Detail: {{ item.name }}",
-            "controller": "Kopokopo\\Payments\\Code\\Controllers\\Admin\\PaymentsController::detailAction",
-            "unique_name": "admin.kopokopo.payments.detail",
-            "route": "admin/kopokopo/payments/detail/{id}",
+            "title": "Coinpayment Payments Detail: {{ item.name }}",
+            "description": "Coinpayment Payments Detail: {{ item.name }}",
+            "controller": "Coinpayment\\Payments\\Code\\Controllers\\Admin\\PaymentsController::detailAction",
+            "unique_name": "admin.coinpayment.payments.detail",
+            "route": "admin/coinpayment/payments/detail/{id}",
             "permissions": "can_view, can_viewown",
             "arguments": {
                 "id": null
@@ -92,11 +92,11 @@
                 "ADMIN": ["can_view", "can_viewown"]
             }
         }, {
-            "title": "Kopokopo Payments Delete: {{ item.name }}",
-            "description": "Kopokopo Payments Delete: {{ item.name }}",
-            "controller": "Kopokopo\\Payments\\Code\\Controllers\\Admin\\PaymentsController::deleteAction",
-            "unique_name": "admin.kopokopo.payments.delete",
-            "route": "admin/kopokopo/payments/delete/{id}",
+            "title": "Coinpayment Payments Delete: {{ item.name }}",
+            "description": "Coinpayment Payments Delete: {{ item.name }}",
+            "controller": "Coinpayment\\Payments\\Code\\Controllers\\Admin\\PaymentsController::deleteAction",
+            "unique_name": "admin.coinpayment.payments.delete",
+            "route": "admin/coinpayment/payments/delete/{id}",
             "permissions": "can_delete, can_deleteown",
             "arguments": {
                 "id": null

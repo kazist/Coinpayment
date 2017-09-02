@@ -1,29 +1,29 @@
 {
-    "title": "Kopokopo",
-    "alias": "kopokopo",
+    "title": "Coinpayment",
+    "alias": "coinpayment",
     "groups": [{
-            "title": "Kopokopo Setting",
+            "title": "Coinpayment Setting",
             "settings": [{
-                    "name": "kopokopo_payments_enable_authentication",
+                    "name": "coinpayment_payments_enable_authentication",
                     "label": "Enable Authentication",
                     "default": "0",
                     "tooltip": "Enabling Authentication will require all transaction to pare username and password.",
                     "type": "yesno"
                 }, {
-                    "name": "kopokopo_payments_username",
-                    "label": "Kopokopo Username",
+                    "name": "coinpayment_payments_username",
+                    "label": "Coinpayment Username",
                     "default": "",
-                    "tooltip": "Kopokopo username as provided on their website.",
+                    "tooltip": "Coinpayment username as provided on their website.",
                     "type": "text"
                 }, {
-                    "name": "kopokopo_payments_password",
-                    "label": "Kopokopo Password",
+                    "name": "coinpayment_payments_password",
+                    "label": "Coinpayment Password",
                     "default": "",
-                    "tooltip": "Kopokopo Password as provided on their website.",
+                    "tooltip": "Coinpayment Password as provided on their website.",
                     "type": "text"
                 }, {
-                    "name": "kopokopo_listener_response_message",
-                    "label": "Kopokopo Response Message",
+                    "name": "coinpayment_listener_response_message",
+                    "label": "Coinpayment Response Message",
                     "default": "Thank you for making payment with Us.",
                     "tooltip": "Set Response Message that shall be sent when user send money to TIll Number",
                     "type": "text"

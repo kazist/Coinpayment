@@ -1,8 +1,8 @@
 {
-    "name": "kazist/kopokopo",
-    "description": "Kazist Kopokopo Manager.",
+    "name": "kazist/coinpayment",
+    "description": "Kazist Coinpayment Manager.",
     "keywords": ["kazist", "transfer manager"],
-    "homepage": "https://github.com/kazist/kopokopo",
+    "homepage": "https://github.com/kazist/coinpayment",
     "license": "LGPL-3.0",
     "version": "1.0.4",
     "authors": [

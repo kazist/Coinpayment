@@ -320,7 +320,7 @@
         }
     ],
     "primarykey": "id",
-    "table_name": "kopokopo_payments",
+    "table_name": "coinpayment_payments",
     "table_alias": "kp",
     "foreignkey": "",
     "renamedfields": "",
@@ -337,9 +337,9 @@
     "right_field": "",
     "query": {
         "from": {
-            "table": "Kopokopo\\Payments\\Code\\Tables\\Payments",
+            "table": "Coinpayment\\Payments\\Code\\Tables\\Payments",
             "alias": "kp",
-            "name": "#__kopokopo_payments"
+            "name": "#__coinpayment_payments"
         },
         "select": [
             "kp.id",

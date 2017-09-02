@@ -668,7 +668,7 @@
         }
     ],
     "primarykey": "id",
-    "table_name": "kopokopo_transactions",
+    "table_name": "coinpayment_transactions",
     "table_alias": "kt",
     "foreignkey": "",
     "renamedfields": "",
@@ -685,9 +685,9 @@
     "right_field": "",
     "query": {
         "from": {
-            "table": "Kopokopo\\Transactions\\Code\\Tables\\Transactions",
+            "table": "Coinpayment\\Transactions\\Code\\Tables\\Transactions",
             "alias": "kt",
-            "name": "#__kopokopo_transactions"
+            "name": "#__coinpayment_transactions"
         },
         "select": [
             "kt.id",

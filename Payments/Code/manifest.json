@@ -1,8 +1,8 @@
 {
     "name": "payments",
-    "title": "Kopokopo Payments",
-    "explanation": "  Kopokopo Payments",
-    "description": "  Kopokopo Payments",
+    "title": "Coinpayment Payments",
+    "explanation": "  Coinpayment Payments",
+    "description": "  Coinpayment Payments",
     "version": 9,
     "has_view": "1",
     "tie_field": "0",

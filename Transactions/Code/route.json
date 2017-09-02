@@ -1,13 +1,13 @@
 {
     "frontend": [{
-            "title": "Kopokopo Transactions Listener",
-            "description": "Kopokopo Transactions Listener.",
-            "controller": "Kopokopo\\Transactions\\Code\\Controllers\\TransactionsController::listenerAction",
-            "unique_name": "kopokopo.transactions.listener",
-            "route": "kopokopo/transactions/listener",
+            "title": "Coinpayment Transactions Listener",
+            "description": "Coinpayment Transactions Listener.",
+            "controller": "Coinpayment\\Transactions\\Code\\Controllers\\TransactionsController::listenerAction",
+            "unique_name": "coinpayment.transactions.listener",
+            "route": "coinpayment/transactions/listener",
             "permissions": "can_view, can_viewown",
             "arguments": "",
-            "keywords": "kopokopo, return",
+            "keywords": "coinpayment, return",
             "priority": "0.5",
             "changefreq": "weekly",
             "login_required": 0
@@ -15,12 +15,12 @@
     "backend": [{
             "title": "General Tasks",
             "description": "General Tasks.",
-            "controller": "Kopokopo\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::taskAction",
-            "unique_name": "admin.kopokopo.transactions.task",
-            "route": "admin/kopokopo/transactions/task",
+            "controller": "Coinpayment\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::taskAction",
+            "unique_name": "admin.coinpayment.transactions.task",
+            "route": "admin/coinpayment/transactions/task",
             "permissions": "can_add, can_write, can_writeown",
             "arguments": "",
-            "keywords": "kopokopo, task",
+            "keywords": "coinpayment, task",
             "priority": "0.5",
             "changefreq": "weekly",
             "login_required": 1,
@@ -29,12 +29,12 @@
                 "ADMIN": ["can_add", "can_write", "can_writeown"]
             }
         }, {
-            "title": "Kopokopo Transactions List",
-            "description": "Management of Kopokopo Transactions.",
-            "controller": "Kopokopo\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::indexAction",
+            "title": "Coinpayment Transactions List",
+            "description": "Management of Coinpayment Transactions.",
+            "controller": "Coinpayment\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::indexAction",
             "permissions": "can_view, can_viewown",
-            "unique_name": "admin.kopokopo.transactions",
-            "route": "admin/kopokopo/transactions",
+            "unique_name": "admin.coinpayment.transactions",
+            "route": "admin/coinpayment/transactions",
             "arguments": "",
             "keywords": "cron, list",
             "priority": "0.5",
@@ -47,9 +47,9 @@
         }, {
             "title": "Add Transaction",
             "description": "Add Transaction.",
-            "controller": "Kopokopo\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::addAction",
-            "unique_name": "admin.kopokopo.transactions.add",
-            "route": "admin/kopokopo/transactions/add",
+            "controller": "Coinpayment\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::addAction",
+            "unique_name": "admin.coinpayment.transactions.add",
+            "route": "admin/coinpayment/transactions/add",
             "permissions": "can_add",
             "arguments": {},
             "keywords": "transaction, add",
@@ -64,8 +64,8 @@
             "title": "Edit Transaction {{ item.name }}",
             "description": "Edit Transaction {{ item.name }}.",
             "controller": "Transactions\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::editAction",
-            "unique_name": "admin.kopokopo.transactions.edit",
-            "route": "admin/kopokopo/transactions/edit/{id}",
+            "unique_name": "admin.coinpayment.transactions.edit",
+            "route": "admin/coinpayment/transactions/edit/{id}",
             "permissions": "can_add, can_write, can_writeown",
             "arguments": {
                 "id": null
@@ -79,11 +79,11 @@
                 "ADMIN": ["can_add", "can_write", "can_writeown"]
             }
         }, {
-            "title": "Kopokopo Transactions Detail: {{ item.name }}",
-            "description": "Kopokopo Transactions Detail: {{ item.name }}",
-            "controller": "Kopokopo\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::detailAction",
-            "unique_name": "admin.kopokopo.transactions.detail",
-            "route": "admin/kopokopo/transactions/detail/{id}",
+            "title": "Coinpayment Transactions Detail: {{ item.name }}",
+            "description": "Coinpayment Transactions Detail: {{ item.name }}",
+            "controller": "Coinpayment\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::detailAction",
+            "unique_name": "admin.coinpayment.transactions.detail",
+            "route": "admin/coinpayment/transactions/detail/{id}",
             "permissions": "can_view, can_viewown",
             "arguments": {
                 "id": null
@@ -97,11 +97,11 @@
                 "ADMIN": ["can_view", "can_viewown"]
             }
         }, {
-            "title": "Kopokopo Transactions Delete: {{ item.name }}",
-            "description": "Kopokopo Transactions Delete: {{ item.name }}",
-            "controller": "Kopokopo\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::deleteAction",
-            "unique_name": "admin.kopokopo.transactions.delete",
-            "route": "admin/kopokopo/transactions/delete/{id}",
+            "title": "Coinpayment Transactions Delete: {{ item.name }}",
+            "description": "Coinpayment Transactions Delete: {{ item.name }}",
+            "controller": "Coinpayment\\Transactions\\Code\\Controllers\\Admin\\TransactionsController::deleteAction",
+            "unique_name": "admin.coinpayment.transactions.delete",
+            "route": "admin/coinpayment/transactions/delete/{id}",
             "permissions": "can_delete, can_deleteown",
             "arguments": {
                 "id": null

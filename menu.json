@@ -2,20 +2,20 @@
     "parent": "payments",
     "menulist": [{
 
-            "title": "Kopokopo",
-            "alias": "admin_kopokopo_kopokopo",
+            "title": "Coinpayment",
+            "alias": "admin_coinpayment_coinpayment",
             "url": "",
             "icon": "fa fa-money",
             "children": [{
                     "title": " Completed Payments",
-                    "alias": "admin_kopokopo_payments",
-                    "url": "admin/kopokopo/payments",
+                    "alias": "admin_coinpayment_payments",
+                    "url": "admin/coinpayment/payments",
                     "icon": "fa fa-money",
                     "children": []
                 }, {
                     "title": " Transaction",
-                    "alias": "admin_kopokopo_transactions",
-                    "url": "admin/kopokopo/transactions",
+                    "alias": "admin_coinpayment_transactions",
+                    "url": "admin/coinpayment/transactions",
                     "icon": "fa fa-money",
                     "children": []
                 }]
