@@ -1,0 +1,17 @@
+
+{# empty Twig template #}
+
+{% import "form.macro.twig" as forms %}
+
+<input type="hidden" name="cmd" value="_pay_simple">
+<input type="hidden" name="reset" value="1">
+<input type="hidden" name="merchant" value="606a89bb575311badf510a4a8b79a45e">
+<input type="hidden" name="currency" value="USD">
+<input type="hidden" name="amountf" value="{{gateway.total_amount}}">
+<input type="hidden" name="item_name" value="{{ payment.id }}">
+<input type="hidden" name="item_desc" value="{{ payment.description }}">
+<input type="hidden" name="success_url" value="{{ generate_url('paypal.payments.return' ) }}">
+<input type="image" src="https://www.coinpayments.net/images/pub/buynow-med.png" alt="Buy Now with CoinPayments.net">
+
+
+

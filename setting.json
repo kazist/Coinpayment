@@ -4,28 +4,16 @@
     "groups": [{
             "title": "Coinpayment Setting",
             "settings": [{
-                    "name": "coinpayment_payments_enable_authentication",
-                    "label": "Enable Authentication",
-                    "default": "0",
-                    "tooltip": "Enabling Authentication will require all transaction to pare username and password.",
-                    "type": "yesno"
-                }, {
-                    "name": "coinpayment_payments_username",
-                    "label": "Coinpayment Username",
-                    "default": "",
-                    "tooltip": "Coinpayment username as provided on their website.",
+                    "name": "coinpayment_payments_cmd",
+                    "label": "Coinpayment Cmd",
+                    "default": "_pay_simple",
+                    "tooltip": "Set Coinpayment Cmd for the forms submited.",
                     "type": "text"
                 }, {
-                    "name": "coinpayment_payments_password",
-                    "label": "Coinpayment Password",
+                    "name": "coinpayment_merchant",
+                    "label": "Coinpayment Merchant",
                     "default": "",
-                    "tooltip": "Coinpayment Password as provided on their website.",
-                    "type": "text"
-                }, {
-                    "name": "coinpayment_listener_response_message",
-                    "label": "Coinpayment Response Message",
-                    "default": "Thank you for making payment with Us.",
-                    "tooltip": "Set Response Message that shall be sent when user send money to TIll Number",
+                    "tooltip": "Set Coinpayment Merchant",
                     "type": "text"
                 }]
         }]

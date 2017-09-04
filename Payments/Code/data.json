@@ -16,7 +16,7 @@
         "file_type": "csv",
         "file_limit": "2000",
         "form_path": "Coinpayment/Payments/Code/gateways",
-        "url": "{{ web_base }}/coinpayment/payments/notify?payment_id={{ payment.id}}",
+        "url": "https://www.coinpayments.net/index.php",
         "published": "1"
     }]
 
