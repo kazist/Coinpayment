@@ -7,6 +7,13 @@
 <input type="hidden" name="reset" value="1">
 <input type="hidden" name="merchant" value="{{ get_setting('coinpayment_merchant') }}">
 <input type="hidden" name="currency" value="USD">
+<input type="hidden" name="first_name" value="{{ user.name }}">
+<input type="hidden" name="last_name" value="{{ user.name }}">
+<input type="hidden" name="email" value="{{ user.email }}">
+<input type="hidden" name="address1" value="{{ user.address }}">
+<input type="hidden" name="phone" value="{{ user.phone }}">
+<input type="hidden" name="city" value="{{ user.city }}">
+<input type="hidden" name="country" value="{{ user.country_id_code }}">
 <input type="hidden" name="amountf" value="{{gateway.total_amount}}">
 <input type="hidden" name="item_name" value="{{ payment.id }}">
 <input type="hidden" name="item_desc" value="{{ payment.description }}">
