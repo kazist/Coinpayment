@@ -6,33 +6,61 @@ Coinpayment\Payments\Code\Tables\Payments:
       type: integer
       generator: { strategy: AUTO }
   fields:
-    transaction_reference:
-      name: transaction_reference
-      type: string
-      length: 255
-      nullable: true
+    payment_id:
+      name: payment_id
+      type: integer
+      length: 11
     user_id:
       name: user_id
       type: integer
       length: 11
-      nullable: true
-    amount:
-      name: amount
-      type: integer
-      length: 11
-      nullable: true
-    sender_phone:
-      name: sender_phone
+    txn_id:
+      name: txn_id
       type: string
       length: 255
-      nullable: true
-    created_by:
-      name: created_by
-      type: integer
-      length: 11
-      nullable: true
-    date_created:
-      name: date_created
+      nullable: false
+    item_name:
+      name: item_name
+      type: string
+      length: 255
+      nullable: false
+    item_number:
+      name: item_number
+      type: string
+      length: 255
+      nullable: false
+    amount1:
+      name: amount1
+      type: string
+      length: 255
+      nullable: false
+    amount2:
+      name: amount2
+      type: string
+      length: 255
+      nullable: false
+    currency1:
+      name: currency1
+      type: string
+      length: 255
+      nullable: false
+    currency2:
+      name: currency2
+      type: string
+      length: 255
+      nullable: false
+    status:
+      name: status
+      type: string
+      length: 255
+      nullable: false
+    status_text:
+      name: status_text
+      type: string
+      length: 255
+      nullable: false
+    date_modified:
+      name: date_modified
       type: datetime
       nullable: true
     modified_by:
@@ -40,10 +68,20 @@ Coinpayment\Payments\Code\Tables\Payments:
       type: integer
       length: 11
       nullable: true
-    date_modified:
-      name: date_modified
+    date_created:
+      name: date_created
       type: datetime
       nullable: true
+    created_by:
+      name: created_by
+      type: integer
+      length: 11
+      nullable: true
+  indexes:
+    modified_by_index:
+      columns: [modified_by]
+    created_by_index:
+      columns: [created_by]
   lifecycleCallbacks:
     prePersist:
       - onPrePersist

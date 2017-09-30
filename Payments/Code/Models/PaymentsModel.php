@@ -50,110 +50,95 @@ class PaymentsModel extends BasePaymentsModel {
         return $this->generateUrl('affiliates.affiliates');
     }
 
-    public function checkMpesaCodeExist($mpesa_code) {
+    public function processCoinpayment($payment_id) {
+
+        $is_valid = false;
+        $order_currency = 'USD';
 
         $factory = new KazistFactory();
 
-        $query = new Query();
-        $query->select('kt.*');
-        $query->from('#__coinpayment_transactions', 'kt');
-        $query->where('kt.transaction_reference=:transaction_reference');
-        $query->setParameter('transaction_reference', $mpesa_code);
-        $record = $query->loadObject();
+        // Fill these in with the information from your CoinPayments.net account.
+        $cp_merchant_id = $factory->getSetting('coinpayment_merchant');
+        $cp_ipn_secret = $factory->getSetting('coinpayment_merchant_ipn_secret_key');
 
-        if (is_object($record)) {
-            if (!(int) $record->used) {
-                return true;
-            } else {
-                $factory->enqueueMessage('The code [' . $mpesa_code . '] is already used.', 'error');
-                return false;
-            }
-        } else {
-            $factory->enqueueMessage('The code [' . $mpesa_code . '] Provided does not exist.', 'error');
-            return false;
-        }
-    }
+        $payment = $this->getPayment($payment_id);
+        $gateway = $this->getGatewayByShortName('coinpayment');
 
-    public function processCoinpayment($payment_id, $mpesa_code) {
-
-        $is_valid = true;
-
-        $factory = new KazistFactory();
-
-        $gateway = $this->getGatewayByName('coinpayment');
-
-        $coinpayment_obj = $this->getCoinpaymentTransaction(trim($mpesa_code));
-        $payment = $this->getPaymentById($payment_id);
+        //These would normally be loaded from your database, the most common way is to pass the Order ID through the 'custom' POST field.
         $deductions = json_decode($payment->deductions);
-        $required_amount = ($deductions->amount) ? $deductions->amount : $payment->amount;
-        $paid_amount = $coinpayment_amount = ($coinpayment_obj->amount) ? $coinpayment_obj->amount : '';
+        $required_amount = (isset($deductions->amount) && $deductions->amount) ? $deductions->amount : $payment->amount;
 
-        // $paid_amount = $this->getConverterAmount($paid_amount, $gateway, false);
-        //  $required_amount = $this->getConverterAmount($required_amount, $gateway, false);
+        $order_total = $paid_amount = $payment->amount;
 
-        $payment->code = $mpesa_code;
-        $payment->receipt_no = $payment->receipt_no;
-        $payment->type = 'coinpayment';
-        $payment->gateway_id = $gateway->id;
-
-        if ($required_amount > $coinpayment_amount) {
-            $paid_amount = $required_amount;
+        if (!isset($_POST['ipn_mode']) || $_POST['ipn_mode'] != 'hmac') {
+            errorAndDie('IPN Mode is not HMAC');
         }
 
-        if (!is_object($coinpayment_obj)) {
-            $factory->enqueueMessage('Mpesa Code (' . $mpesa_code . ') does not exist.', 'error');
-            return false;
+        if (!isset($_SERVER['HTTP_HMAC']) || empty($_SERVER['HTTP_HMAC'])) {
+            errorAndDie('No HMAC signature sent.');
         }
 
-        parent::savePaidAmount($payment, $required_amount, $paid_amount);
+        $request = file_get_contents('php://input');
+        if ($request === FALSE || empty($request)) {
+            errorAndDie('Error reading POST data');
+        }
 
-        if ($paid_amount < $required_amount) {
+        if (!isset($_POST['merchant']) || $_POST['merchant'] != trim($cp_merchant_id)) {
+            errorAndDie('No or incorrect Merchant ID passed');
+        }
+
+        $hmac = hash_hmac("sha512", $request, trim($cp_ipn_secret));
+        if ($hmac != $_SERVER['HTTP_HMAC']) {
+            errorAndDie('HMAC signature does not match');
+        }
+
+        // HMAC Signature verified at this point, load some variables.
+
+        $data['payment_id'] = $payment_id;
+        $data['txn_id'] = $_POST['txn_id'];
+        $data['item_name'] = $_POST['item_name'];
+        $data['item_number'] = $_POST['item_number'];
+        $data['amount1'] = floatval($_POST['amount1']);
+        $data['amount2'] = floatval($_POST['amount2']);
+        $data['currency1'] = $_POST['currency1'];
+        $data['currency2'] = $_POST['currency2'];
+        $data['status'] = intval($_POST['status']);
+        $data['status_text'] = $_POST['status_text'];
+
+        $paid_amount = (isset($data['amount1']) && $data['amount1']) ? $data['amount1'] : 0;
+
+        $factory->saveRecord('#__coinpayment_payments', $data, array('payment_id=:payment_id'), array('payment_id' => $payment_id));
+
+        if ($data['status'] >= 100 || $data['status'] == 2) {
+            // payment is complete or queued for nightly payout, success
+
+            $payment->type = 'coinpayment';
+            $payment->gateway_id = $gateway->id;
+            $payment->code = $data['txn_id'];
+            $payment->receipt_no = $payment->receipt_no;
+
+            parent::savePaidAmount($payment, $required_amount, $paid_amount);
+
+            if ($paid_amount >= $required_amount) {
+                parent::successfulTransaction($payment_id, $this->code);
+            } else {
+                parent::failTransaction($payment_id);
+            }
+
             $is_valid = false;
-        }
+        } else if ($data['status'] < 0) {
+            //payment error, this is usually final but payments will sometimes be reopened if there was no exchange rate conversion or with seller consent
 
-        $this->saveCoinpaymentPayment($paid_amount, $mpesa_code,$coinpayment_obj->sender_phone);
-        $this->updateCoinpayment($coinpayment_obj);
+            $is_valid = false;
+            parent::failTransaction($payment_id);
+        } else {
+            //payment is pending, you can optionally add a note to the order page
+
+            $is_valid = false;
+            parent::pendingTransaction($payment_id);
+        }
 
         return $is_valid;
-    }
-
-    public function saveCoinpaymentPayment($amount, $mpesa_code,$phone) {
-
-        $factory = new KazistFactory();
-        $user = $factory->getUser();
-
-        $coinpayment_obj = new \stdClass();
-        $coinpayment_obj->transaction_reference = $mpesa_code;
-        $coinpayment_obj->user_id = $user->id;
-        $coinpayment_obj->sender_phone = $phone;
-        $coinpayment_obj->amount = $amount;
-
-        $factory->saveRecord('#__coinpayment_payments', $coinpayment_obj);
-    }
-
-    public function updateCoinpayment($coinpayment_obj) {
-
-        $factory = new KazistFactory();
-        $user = $factory->getUser();
-
-        $coinpayment_obj->used = 1;
-        $coinpayment_obj->date_used = date('Y-m-d H:i:s');
-        $coinpayment_obj->used_by = $user->id;
-
-        $factory->saveRecord('#__coinpayment_transactions', $coinpayment_obj);
-    }
-
-    public function getCoinpaymentTransaction($mpesa_code) {
-
-        $query = new Query();
-        $query->select('kt.*');
-        $query->from('#__coinpayment_transactions', 'kt');
-        $query->where('kt.transaction_reference=:transaction_reference');
-        $query->setParameter('transaction_reference', $mpesa_code);
-
-        $record = $query->loadObject();
-
-        return $record;
     }
 
 }

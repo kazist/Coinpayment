@@ -15,6 +15,12 @@
                     "default": "",
                     "tooltip": "Set Coinpayment Merchant",
                     "type": "text"
+                }, {
+                    "name": "coinpayment_merchant_ipn_secret_key",
+                    "label": "Coinpayment Merchant Ipn Secret Key",
+                    "default": "",
+                    "tooltip": "Set Coinpayment Merchant Ipn Secret Key",
+                    "type": "text"
                 }]
         }]
 }

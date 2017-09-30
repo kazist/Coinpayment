@@ -45,21 +45,12 @@ class PaymentsController extends BasePaymentsController {
     }
 
     public function notifyAction() {
+        $payment_id = $this->request->get('item_name');
 
-        $payment_id = $this->request->query->get('payment_id');
-        $mpesa_code = $this->request->get('mpesa_code');
+        $this->model = new PaymentsModel();
+        $this->model->processCoinpayment($payment_id);
 
-        if ($this->model->checkMpesaCodeExist($mpesa_code)) {
-
-            $this->model = new PaymentsModel();
-            $this->model->processCoinpayment($payment_id, $mpesa_code);
-            $this->model->notificationTransaction($payment_id);
-            $payment_url = $this->model->getUrlByPaymentId($payment_id);
-
-            return $this->redirect($payment_url);
-        } else {
-            return $this->redirectToRoute('payments.payments.pay', array('payment_id' => $payment_id));
-        }
+        return $this->redirectToRoute('payments.payments');
     }
 
 }

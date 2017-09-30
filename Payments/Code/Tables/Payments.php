@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Payments
  *
- * @ORM\Table(name="coinpayment_payments")
+ * @ORM\Table(name="coinpayment_payments", indexes={@ORM\Index(name="modified_by_index", columns={"modified_by"}), @ORM\Index(name="created_by_index", columns={"created_by"})})
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
@@ -23,46 +23,88 @@ class Payments extends \Kazist\Table\BaseTable
     protected $id;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="transaction_reference", type="string", length=255, nullable=true)
+     * @ORM\Column(name="payment_id", type="integer", length=11)
      */
-    protected $transaction_reference;
+    protected $payment_id;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", length=11, nullable=true)
+     * @ORM\Column(name="user_id", type="integer", length=11)
      */
     protected $user_id;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="amount", type="integer", length=11, nullable=true)
+     * @ORM\Column(name="txn_id", type="string", length=255, nullable=false)
      */
-    protected $amount;
+    protected $txn_id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="sender_phone", type="string", length=255, nullable=true)
+     * @ORM\Column(name="item_name", type="string", length=255, nullable=false)
      */
-    protected $sender_phone;
+    protected $item_name;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="created_by", type="integer", length=11, nullable=true)
+     * @ORM\Column(name="item_number", type="string", length=255, nullable=false)
      */
-    protected $created_by;
+    protected $item_number;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="amount1", type="string", length=255, nullable=false)
+     */
+    protected $amount1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="amount2", type="string", length=255, nullable=false)
+     */
+    protected $amount2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="currency1", type="string", length=255, nullable=false)
+     */
+    protected $currency1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="currency2", type="string", length=255, nullable=false)
+     */
+    protected $currency2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=false)
+     */
+    protected $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status_text", type="string", length=255, nullable=false)
+     */
+    protected $status_text;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_created", type="datetime", nullable=true)
+     * @ORM\Column(name="date_modified", type="datetime", nullable=true)
      */
-    protected $date_created;
+    protected $date_modified;
 
     /**
      * @var integer
@@ -74,9 +116,16 @@ class Payments extends \Kazist\Table\BaseTable
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_modified", type="datetime", nullable=true)
+     * @ORM\Column(name="date_created", type="datetime", nullable=true)
      */
-    protected $date_modified;
+    protected $date_created;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="created_by", type="integer", length=11, nullable=true)
+     */
+    protected $created_by;
 
 
     /**
@@ -90,27 +139,27 @@ class Payments extends \Kazist\Table\BaseTable
     }
 
     /**
-     * Set transactionReference
+     * Set paymentId
      *
-     * @param string $transactionReference
+     * @param integer $paymentId
      *
      * @return Payments
      */
-    public function setTransactionReference($transactionReference)
+    public function setPaymentId($paymentId)
     {
-        $this->transaction_reference = $transactionReference;
+        $this->payment_id = $paymentId;
 
         return $this;
     }
 
     /**
-     * Get transactionReference
+     * Get paymentId
      *
-     * @return string
+     * @return integer
      */
-    public function getTransactionReference()
+    public function getPaymentId()
     {
-        return $this->transaction_reference;
+        return $this->payment_id;
     }
 
     /**
@@ -138,71 +187,229 @@ class Payments extends \Kazist\Table\BaseTable
     }
 
     /**
-     * Set amount
+     * Set txnId
      *
-     * @param integer $amount
+     * @param string $txnId
      *
      * @return Payments
      */
-    public function setAmount($amount)
+    public function setTxnId($txnId)
     {
-        $this->amount = $amount;
+        $this->txn_id = $txnId;
 
         return $this;
     }
 
     /**
-     * Get amount
-     *
-     * @return integer
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
-
-    /**
-     * Set senderPhone
-     *
-     * @param string $senderPhone
-     *
-     * @return Payments
-     */
-    public function setSenderPhone($senderPhone)
-    {
-        $this->sender_phone = $senderPhone;
-
-        return $this;
-    }
-
-    /**
-     * Get senderPhone
+     * Get txnId
      *
      * @return string
      */
-    public function getSenderPhone()
+    public function getTxnId()
     {
-        return $this->sender_phone;
+        return $this->txn_id;
     }
 
     /**
-     * Get createdBy
+     * Set itemName
      *
-     * @return integer
+     * @param string $itemName
+     *
+     * @return Payments
      */
-    public function getCreatedBy()
+    public function setItemName($itemName)
     {
-        return $this->created_by;
+        $this->item_name = $itemName;
+
+        return $this;
     }
 
     /**
-     * Get dateCreated
+     * Get itemName
+     *
+     * @return string
+     */
+    public function getItemName()
+    {
+        return $this->item_name;
+    }
+
+    /**
+     * Set itemNumber
+     *
+     * @param string $itemNumber
+     *
+     * @return Payments
+     */
+    public function setItemNumber($itemNumber)
+    {
+        $this->item_number = $itemNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get itemNumber
+     *
+     * @return string
+     */
+    public function getItemNumber()
+    {
+        return $this->item_number;
+    }
+
+    /**
+     * Set amount1
+     *
+     * @param string $amount1
+     *
+     * @return Payments
+     */
+    public function setAmount1($amount1)
+    {
+        $this->amount1 = $amount1;
+
+        return $this;
+    }
+
+    /**
+     * Get amount1
+     *
+     * @return string
+     */
+    public function getAmount1()
+    {
+        return $this->amount1;
+    }
+
+    /**
+     * Set amount2
+     *
+     * @param string $amount2
+     *
+     * @return Payments
+     */
+    public function setAmount2($amount2)
+    {
+        $this->amount2 = $amount2;
+
+        return $this;
+    }
+
+    /**
+     * Get amount2
+     *
+     * @return string
+     */
+    public function getAmount2()
+    {
+        return $this->amount2;
+    }
+
+    /**
+     * Set currency1
+     *
+     * @param string $currency1
+     *
+     * @return Payments
+     */
+    public function setCurrency1($currency1)
+    {
+        $this->currency1 = $currency1;
+
+        return $this;
+    }
+
+    /**
+     * Get currency1
+     *
+     * @return string
+     */
+    public function getCurrency1()
+    {
+        return $this->currency1;
+    }
+
+    /**
+     * Set currency2
+     *
+     * @param string $currency2
+     *
+     * @return Payments
+     */
+    public function setCurrency2($currency2)
+    {
+        $this->currency2 = $currency2;
+
+        return $this;
+    }
+
+    /**
+     * Get currency2
+     *
+     * @return string
+     */
+    public function getCurrency2()
+    {
+        return $this->currency2;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Payments
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set statusText
+     *
+     * @param string $statusText
+     *
+     * @return Payments
+     */
+    public function setStatusText($statusText)
+    {
+        $this->status_text = $statusText;
+
+        return $this;
+    }
+
+    /**
+     * Get statusText
+     *
+     * @return string
+     */
+    public function getStatusText()
+    {
+        return $this->status_text;
+    }
+
+    /**
+     * Get dateModified
      *
      * @return \DateTime
      */
-    public function getDateCreated()
+    public function getDateModified()
     {
-        return $this->date_created;
+        return $this->date_modified;
     }
 
     /**
@@ -216,13 +423,23 @@ class Payments extends \Kazist\Table\BaseTable
     }
 
     /**
-     * Get dateModified
+     * Get dateCreated
      *
      * @return \DateTime
      */
-    public function getDateModified()
+    public function getDateCreated()
     {
-        return $this->date_modified;
+        return $this->date_created;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return integer
+     */
+    public function getCreatedBy()
+    {
+        return $this->created_by;
     }
     /**
      * @ORM\PreUpdate

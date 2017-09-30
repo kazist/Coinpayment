@@ -17,10 +17,18 @@
                                             "user_right": null,
                                             "hide_on_new": null,
                                             "fields": [
+                                                "txn_id",
+                                                "item_name",
+                                                "item_number",
+                                                "item_number",
+                                                "amount1",
+                                                "amount2",
+                                                "currency1",
+                                                "currency2",
+                                                "status",
+                                                "status_text",
                                                 "user_id",
-                                                "amount",
-                                                "transaction_reference",
-                                                "sender_phone"
+                                                "payment_id"
                                             ]
                                         }
                                     }
@@ -57,20 +65,12 @@
         },
         "table": {
             "fields": [
-                "transaction_reference",
-                "user_id",
-                "amount",
-                "sender_phone",
-                "created_by",
-                "date_created"
+                "date_created",
+                "created_by"
             ],
             "has_label": [
-                "transaction_reference",
-                "user_id",
-                "amount",
-                "sender_phone",
-                "created_by",
-                "date_created"
+                "date_created",
+                "created_by"
             ]
         }
     },
@@ -107,18 +107,14 @@
             }
         },
         {
-            "dropdown_filter": "0",
-            "nullable": "1",
-            "name": "transaction_reference",
+            "name": "payment_id",
             "html_type": "text",
-            "mysql_type": "varchar",
+            "mysql_type": "int",
             "view_side": "",
             "index": "",
-            "id_name": "",
-            "class_name": "",
-            "default_value": "",
             "size": "",
             "readonly": "0",
+            "default_value": "",
             "format_value": "",
             "parameters": {
                 "general": [],
@@ -132,18 +128,14 @@
             }
         },
         {
-            "dropdown_filter": "0",
-            "nullable": "1",
             "name": "user_id",
             "html_type": "text",
             "mysql_type": "int",
             "view_side": "",
             "index": "",
-            "id_name": "",
-            "class_name": "",
-            "default_value": "",
             "size": "",
             "readonly": "0",
+            "default_value": "",
             "format_value": "",
             "parameters": {
                 "general": [],
@@ -158,33 +150,8 @@
         },
         {
             "dropdown_filter": "0",
-            "nullable": "1",
-            "name": "amount",
-            "html_type": "text",
-            "mysql_type": "int",
-            "view_side": "",
-            "index": "",
-            "id_name": "",
-            "class_name": "",
-            "default_value": "",
-            "size": "",
-            "readonly": "0",
-            "format_value": "",
-            "parameters": {
-                "general": [],
-                "source": [],
-                "save": {
-                    "view_side": "both",
-                    "index": ""
-                },
-                "media": [],
-                "payment": []
-            }
-        },
-        {
-            "dropdown_filter": "0",
-            "nullable": "1",
-            "name": "sender_phone",
+            "nullable": "0",
+            "name": "txn_id",
             "html_type": "text",
             "mysql_type": "varchar",
             "view_side": "",
@@ -207,30 +174,24 @@
             }
         },
         {
-            "dropdown_filter": "1",
-            "nullable": "1",
-            "name": "created_by",
-            "html_type": "recordpicker",
-            "mysql_type": "int",
+            "dropdown_filter": "0",
+            "nullable": "0",
+            "name": "item_name",
+            "html_type": "text",
+            "mysql_type": "varchar",
             "view_side": "",
             "index": "",
             "id_name": "",
             "class_name": "",
             "default_value": "",
             "size": "",
-            "readonly": "",
+            "readonly": "0",
             "format_value": "",
             "parameters": {
                 "general": [],
-                "source": {
-                    "data_source": "db_table",
-                    "join_field": "id",
-                    "display_field": [
-                        "name"
-                    ],
-                    "join_table_name": "users_users"
-                },
+                "source": [],
                 "save": {
+                    "view_side": "both",
                     "index": ""
                 },
                 "media": [],
@@ -238,9 +199,184 @@
             }
         },
         {
-            "dropdown_filter": "1",
+            "dropdown_filter": "0",
+            "nullable": "0",
+            "name": "item_number",
+            "html_type": "text",
+            "mysql_type": "varchar",
+            "view_side": "",
+            "index": "",
+            "id_name": "",
+            "class_name": "",
+            "default_value": "",
+            "size": "",
+            "readonly": "0",
+            "format_value": "",
+            "parameters": {
+                "general": [],
+                "source": [],
+                "save": {
+                    "view_side": "both",
+                    "index": ""
+                },
+                "media": [],
+                "payment": []
+            }
+        },
+        {
+            "dropdown_filter": "0",
+            "nullable": "0",
+            "name": "amount1",
+            "html_type": "text",
+            "mysql_type": "varchar",
+            "view_side": "",
+            "index": "",
+            "id_name": "",
+            "class_name": "",
+            "default_value": "",
+            "size": "",
+            "readonly": "0",
+            "format_value": "",
+            "parameters": {
+                "general": [],
+                "source": [],
+                "save": {
+                    "view_side": "both",
+                    "index": ""
+                },
+                "media": [],
+                "payment": []
+            }
+        },
+        {
+            "dropdown_filter": "0",
+            "nullable": "0",
+            "name": "amount2",
+            "html_type": "text",
+            "mysql_type": "varchar",
+            "view_side": "",
+            "index": "",
+            "id_name": "",
+            "class_name": "",
+            "default_value": "",
+            "size": "",
+            "readonly": "0",
+            "format_value": "",
+            "parameters": {
+                "general": [],
+                "source": [],
+                "save": {
+                    "view_side": "both",
+                    "index": ""
+                },
+                "media": [],
+                "payment": []
+            }
+        },
+        {
+            "dropdown_filter": "0",
+            "nullable": "0",
+            "name": "currency1",
+            "html_type": "text",
+            "mysql_type": "varchar",
+            "view_side": "",
+            "index": "",
+            "id_name": "",
+            "class_name": "",
+            "default_value": "",
+            "size": "",
+            "readonly": "0",
+            "format_value": "",
+            "parameters": {
+                "general": [],
+                "source": [],
+                "save": {
+                    "view_side": "both",
+                    "index": ""
+                },
+                "media": [],
+                "payment": []
+            }
+        },
+        {
+            "dropdown_filter": "0",
+            "nullable": "0",
+            "name": "currency2",
+            "html_type": "text",
+            "mysql_type": "varchar",
+            "view_side": "",
+            "index": "",
+            "id_name": "",
+            "class_name": "",
+            "default_value": "",
+            "size": "",
+            "readonly": "0",
+            "format_value": "",
+            "parameters": {
+                "general": [],
+                "source": [],
+                "save": {
+                    "view_side": "both",
+                    "index": ""
+                },
+                "media": [],
+                "payment": []
+            }
+        },
+        {
+            "dropdown_filter": "0",
+            "nullable": "0",
+            "name": "status",
+            "html_type": "text",
+            "mysql_type": "varchar",
+            "view_side": "",
+            "index": "",
+            "id_name": "",
+            "class_name": "",
+            "default_value": "",
+            "size": "",
+            "readonly": "0",
+            "format_value": "",
+            "parameters": {
+                "general": [],
+                "source": [],
+                "save": {
+                    "view_side": "both",
+                    "index": ""
+                },
+                "media": [],
+                "payment": []
+            }
+        },
+        {
+            "dropdown_filter": "0",
+            "nullable": "0",
+            "name": "status_text",
+            "html_type": "text",
+            "mysql_type": "varchar",
+            "view_side": "",
+            "index": "",
+            "id_name": "",
+            "class_name": "",
+            "default_value": "",
+            "size": "",
+            "readonly": "0",
+            "format_value": "",
+            "parameters": {
+                "general": [],
+                "source": [],
+                "save": {
+                    "view_side": "both",
+                    "index": ""
+                },
+                "media": [],
+                "payment": []
+            }
+        },
+        {
+            "dropdown_filter": "0",
             "nullable": "1",
-            "name": "date_created",
+            "name": "date_modified",
             "html_type": "datetime",
             "mysql_type": "datetime",
             "view_side": "",
@@ -287,6 +423,7 @@
                     "join_table_name": "users_users"
                 },
                 "save": {
+                    "view_side": "both",
                     "index": ""
                 },
                 "media": [],
@@ -294,9 +431,9 @@
             }
         },
         {
-            "dropdown_filter": "0",
+            "dropdown_filter": "1",
             "nullable": "1",
-            "name": "date_modified",
+            "name": "date_created",
             "html_type": "datetime",
             "mysql_type": "datetime",
             "view_side": "",
@@ -317,15 +454,47 @@
                 "media": [],
                 "payment": []
             }
+        },
+        {
+            "dropdown_filter": "1",
+            "nullable": "1",
+            "name": "created_by",
+            "html_type": "recordpicker",
+            "mysql_type": "int",
+            "view_side": "",
+            "index": "",
+            "id_name": "",
+            "class_name": "",
+            "default_value": "",
+            "size": "",
+            "readonly": "",
+            "format_value": "",
+            "parameters": {
+                "general": [],
+                "source": {
+                    "data_source": "db_table",
+                    "join_field": "id",
+                    "display_field": [
+                        "name"
+                    ],
+                    "join_table_name": "users_users"
+                },
+                "save": {
+                    "view_side": "both",
+                    "index": ""
+                },
+                "media": [],
+                "payment": []
+            }
         }
     ],
     "primarykey": "id",
     "table_name": "coinpayment_payments",
-    "table_alias": "kp",
+    "table_alias": "cp",
     "foreignkey": "",
     "renamedfields": "",
     "main_fields": [
-        "transaction_reference"
+        "id"
     ],
     "main_view": "table",
     "has_view": "1",
@@ -338,19 +507,42 @@
     "query": {
         "from": {
             "table": "Coinpayment\\Payments\\Code\\Tables\\Payments",
-            "alias": "kp",
+            "alias": "cp",
             "name": "#__coinpayment_payments"
         },
         "select": [
-            "kp.id",
-            "kp.transaction_reference",
-            "kp.user_id",
-            "kp.amount",
-            "kp.sender_phone",
-            "kp.created_by",
-            "kp.date_created",
-            "kp.modified_by",
-            "kp.date_modified"
+            "cp.id",
+            "cp.payment_id",
+            "cp.user_id",
+            "cp.txn_id",
+            "cp.item_name",
+            "cp.item_number",
+            "cp.amount1",
+            "cp.amount2",
+            "cp.currency1",
+            "cp.currency2",
+            "cp.status",
+            "cp.status_text",
+            "cp.date_modified",
+            "cp.modified_by",
+            "uu.name AS modified_by_name",
+            "cp.date_created",
+            "cp.created_by",
+            "uu_3742.name AS created_by_name"
+        ],
+        "leftjoin": [
+            {
+                "table": "Users\\Users\\Code\\Tables\\Users",
+                "alias": "uu",
+                "name": "#__users_users",
+                "on": "cp.modified_by = uu.id"
+            },
+            {
+                "table": "Users\\Users\\Code\\Tables\\Users",
+                "alias": "uu_3742",
+                "name": "#__users_users",
+                "on": "cp.created_by = uu_3742.id"
+            }
         ]
     }
 }
