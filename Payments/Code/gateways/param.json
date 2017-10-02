@@ -1,0 +1,7 @@
+[{
+        "name": "bitcoin_id",
+        "label": "Bitcoin Id",
+        "default": "",
+        "tooltip": "Enter your Bitcoin Id",
+        "type": "text"
+    }]

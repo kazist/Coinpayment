@@ -5,7 +5,7 @@
         "short_name": "coinpayment",
         "long_name": "Coinpayment",
         "input_label": "Coinpayment",
-        "can_withdraw": "0",
+        "can_withdraw": "1",
         "can_payment": "1",
         "can_transfer": "0",
         "payment_instruction": "To complete your Payment click the Coinpayment button below and make a payment of <b>{{ gateway.total_amount }} {{ converter.code }}</b>. <br> {{ payment_form }}",
