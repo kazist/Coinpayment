@@ -107,35 +107,38 @@ class PaymentsModel extends BasePaymentsModel {
 
         $paid_amount = (isset($data['amount1']) && $data['amount1']) ? $data['amount1'] : 0;
 
-        $factory->saveRecord('#__coinpayment_payments', $data, array('payment_id=:payment_id'), array('payment_id' => $payment_id));
+        if (!$payment->successful) {
+            
+            $factory->saveRecord('#__coinpayment_payments', $data, array('payment_id=:payment_id'), array('payment_id' => $payment_id));
 
-        if ($data['status'] >= 100 || $data['status'] == 2) {
-            // payment is complete or queued for nightly payout, success
+            if ($data['status'] >= 100 || $data['status'] == 2) {
+                // payment is complete or queued for nightly payout, success
 
-            $payment->type = 'coinpayment';
-            $payment->gateway_id = $gateway->id;
-            $payment->code = $data['txn_id'];
-            $payment->receipt_no = $payment->receipt_no;
+                $payment->type = 'coinpayment';
+                $payment->gateway_id = $gateway->id;
+                $payment->code = $data['txn_id'];
+                $payment->receipt_no = $payment->receipt_no;
 
-            parent::savePaidAmount($payment, $required_amount, $paid_amount);
+                parent::savePaidAmount($payment, $required_amount, $paid_amount);
 
-            if ($paid_amount >= $required_amount) {
-                parent::successfulTransaction($payment_id, $this->code);
-            } else {
+                if ($paid_amount >= $required_amount) {
+                    parent::successfulTransaction($payment_id, $this->code);
+                } else {
+                    parent::failTransaction($payment_id);
+                }
+
+                $is_valid = false;
+            } else if ($data['status'] < 0) {
+                //payment error, this is usually final but payments will sometimes be reopened if there was no exchange rate conversion or with seller consent
+
+                $is_valid = false;
                 parent::failTransaction($payment_id);
+            } else {
+                //payment is pending, you can optionally add a note to the order page
+
+                $is_valid = false;
+                parent::pendingTransaction($payment_id);
             }
-
-            $is_valid = false;
-        } else if ($data['status'] < 0) {
-            //payment error, this is usually final but payments will sometimes be reopened if there was no exchange rate conversion or with seller consent
-
-            $is_valid = false;
-            parent::failTransaction($payment_id);
-        } else {
-            //payment is pending, you can optionally add a note to the order page
-
-            $is_valid = false;
-            parent::pendingTransaction($payment_id);
         }
 
         return $is_valid;
