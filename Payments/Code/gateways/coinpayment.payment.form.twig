@@ -17,7 +17,7 @@
 <input type="hidden" name="amountf" value="{{gateway.total_amount/converter.buying|default(1) }}">
 <input type="hidden" name="item_name" value="{{ payment.id }}">
 <input type="hidden" name="item_desc" value="{{ payment.description }}">
-<input type="hidden" name="success_url" value="{{ generate_url('paypal.payments.return' ) }}">
+<input type="hidden" name="success_url" value="{{ generate_url('paypal.payments.return', null, 0 ) }}">
 <input type="image" src="https://www.coinpayments.net/images/pub/buynow-med.png" alt="Buy Now with CoinPayments.net">
 
 
