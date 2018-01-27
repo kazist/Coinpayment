@@ -108,16 +108,18 @@ class PaymentsModel extends BasePaymentsModel {
         $paid_amount = (isset($data['amount1']) && $data['amount1']) ? $data['amount1'] : 0;
 
         if (!$payment->successful) {
-            
+
             $factory->saveRecord('#__coinpayment_payments', $data, array('payment_id=:payment_id'), array('payment_id' => $payment_id));
 
-            if ($data['status'] >= 100 || $data['status'] == 2) {
+            if ( $data['status'] >= 100 || $data['status'] == 2) {
                 // payment is complete or queued for nightly payout, success
 
                 $payment->type = 'coinpayment';
                 $payment->gateway_id = $gateway->id;
                 $payment->code = $data['txn_id'];
                 $payment->receipt_no = $payment->receipt_no;
+                $payment->completed = 1;
+                $payment->successful = 1;
 
                 parent::savePaidAmount($payment, $required_amount, $paid_amount);
 
